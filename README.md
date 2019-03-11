@@ -1,1 +1,1 @@
-# 161HCR
+# Handwritten Character Recognition Using Machine Learning
