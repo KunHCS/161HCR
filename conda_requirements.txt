@@ -101,7 +101,7 @@ python-dateutil=2.8.0=pypi_0
 pytz=2018.9=py36_0
 pywin32=223=py36hfa6e2cd_1
 pywinpty=0.5.5=py36_1000
-pyyaml=3.13=py36hfa6e2cd_0
+pyyaml=5.1=py36he774522_0
 pyzmq=17.1.2=py36ha925a31_2
 qt=5.9.7=vc14h73c81de_0
 qtawesome=0.5.6=py_0
