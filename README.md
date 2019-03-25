@@ -1,5 +1,8 @@
+[**API Instruction**](# API Instruction)
+
 # Handwritten Character Recognition
 This project uses machine learning algorithm to recognize hand written characters
+
 
 ## Git Setup
 Clone to local directory
@@ -36,3 +39,17 @@ To start the backend server
 Creating Anaconda environment  for development
 
 	conda create --name <env_name> --file conda_requirements.txt
+
+# API Instruction
+
+## *User Input Image*
+#### http://127.0.0.1:5000/image (POST)
+**[React image upload example](https://www.academind.com/learn/react/snippets/image-upload/ "React image upload example")**
+##### Request body (form-data):
+	{
+		"image": <image file>,
+	}
+### Responses:
+Status: 200 OK
+
+Status: 400 BAD REQUEST
