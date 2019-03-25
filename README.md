@@ -1,4 +1,4 @@
-[**API Instruction**](#APIInstruction)
+[**API Instruction**](#api-instruction)
 
 # Handwritten Character Recognition
 This project uses machine learning algorithm to recognize hand written characters
