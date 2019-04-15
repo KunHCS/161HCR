@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import SignatureCanvas from 'react-signature-canvas';
 
@@ -18,7 +17,7 @@ class App extends Component {
   	let {trimmedDataURL} = this.state
     return (
       <div>
-      <h1>Handwriting Recognitionsss</h1>
+      <h1>Handwriting Recognition</h1>
         <SignatureCanvas penColor='black'
     canvasProps={{width: 800, height: 500, className: 'sigCanvas'}} ref={(r) => { this._signatureCanvas = r;}} />
       <div>
@@ -30,7 +29,7 @@ class App extends Component {
         </button>
       </div>
       {trimmedDataURL
-        ? <img 
+        ? <img alt="handwrittenText"
           src={trimmedDataURL} />
         : null}
       </div>
