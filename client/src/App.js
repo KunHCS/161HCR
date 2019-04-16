@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import './App.css';
 import SignatureCanvas from 'react-signature-canvas';
+import axios from 'axios';
+
+
+
+
 
 class App extends Component {
 	state = {trimmedDataURL: null}
@@ -10,8 +15,18 @@ class App extends Component {
   }
   trim = () => {
     this.setState({trimmedDataURL: this._signatureCanvas.getTrimmedCanvas()
-      .toDataURL('image/png')})
+      .toDataURL('image/png')});
+    this.predictImage(this._signatureCanvas.getTrimmedCanvas()
+      .toDataURL());
   }
+
+  predictImage = (data) => {
+  axios
+    .post('image', data);
+
+  
+}
+
 
   render() {
   	let {trimmedDataURL} = this.state

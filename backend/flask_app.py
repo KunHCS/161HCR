@@ -25,6 +25,9 @@ def test_ml():
 # user input image
 @app.route('/image', methods=['POST'])
 def image_route():
+    
+    imgData = request.get_data()
+    print ('test:', imgData)
     allowed_extension = ('.png', '.jpg', '.jpeg')
     file = request.files.get('image', None)
     if not file or not file.filename.lower().endswith(allowed_extension):
