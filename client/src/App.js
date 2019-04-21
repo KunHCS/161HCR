@@ -17,13 +17,12 @@ class App extends Component {
     this.setState({trimmedDataURL: this._signatureCanvas.getTrimmedCanvas()
       .toDataURL('image/png')});
     this.predictImage(this._signatureCanvas.getTrimmedCanvas()
-      .toDataURL());
+      .toDataURL('image/png'));
   }
 
   predictImage = (data) => {
   axios
     .post('image', data);
-
   
 }
 
@@ -34,7 +33,7 @@ class App extends Component {
       <div>
       <h1>Handwriting Recognition</h1>
         <SignatureCanvas penColor='black'
-    canvasProps={{width: 800, height: 500, className: 'sigCanvas'}} ref={(r) => { this._signatureCanvas = r;}} />
+    canvasProps={{width: 500, height: 500, className: 'sigCanvas'}} ref={(r) => { this._signatureCanvas = r;}} />
       <div>
         <button  onClick={this.clear}>
           Clear
