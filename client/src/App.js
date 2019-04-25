@@ -4,9 +4,6 @@ import SignatureCanvas from 'react-signature-canvas';
 import axios from 'axios';
 
 
-
-
-
 class App extends Component {
 	state = {trimmedDataURL: null}
   sigPad = {}
@@ -22,8 +19,9 @@ class App extends Component {
 
   predictImage = (data) => {
   axios
-    .post('image', data);
-  
+    .post('http://127.0.0.1:5000/image', data)
+    .then(response => console.log(response)) // display response.data.Result somewheres
+    .catch(error => console.log(error.response));
 }
 
 
