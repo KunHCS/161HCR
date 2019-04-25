@@ -6,7 +6,7 @@ import random
 
 
 def process_data(input_img):
-    return keras.utils.normalize(input_img, axis=1)
+    return input_img
 
 
 def predict_output(input_img):
