@@ -68,8 +68,8 @@ def image_route():
     print(image.shape)
     image = image.astype(np.float32)
     out = predict_hasy(image)
-    print('OUTPUT', out)
     out = out.item()
+    print('OUTPUT', mapping[out])
     return jsonify({'Result': mapping[out], 'Symbol': out}), 200
 
 

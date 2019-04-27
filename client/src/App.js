@@ -5,7 +5,7 @@ import axios from 'axios';
 
 
 class App extends Component {
-	state = {trimmedDataURL: null}
+	state = {trimmedDataURL: null, result: ''}
   sigPad = {}
   clear = () => {
     this._signatureCanvas.clear()
@@ -20,31 +20,44 @@ class App extends Component {
   predictImage = (data) => {
   axios
     .post('http://127.0.0.1:5000/image', data)
-    .then(response => console.log(response)) // display response.data.Result somewheres
+    .then(data => {
+        this.setState({ 
+          result: data.data.Result
+        });
+        console.log("Prediction: ", data.data.Result)})
     .catch(error => console.log(error.response));
 }
 
 
   render() {
-  	let {trimmedDataURL} = this.state
+  	let {trimmedDataURL, result} = this.state
     return (
       <div>
-      <h1>Handwriting Recognition</h1>
-        <SignatureCanvas penColor='black'
-    canvasProps={{width: 500, height: 500, className: 'sigCanvas'}} ref={(r) => { this._signatureCanvas = r;}} />
-      <div>
-        <button  onClick={this.clear}>
-          Clear
-        </button>
-        <button  onClick={this.trim}>
-          Save
-        </button>
-      </div>
-      {trimmedDataURL
-        ? <img alt="handwrittenText"
+        <h1>Handwriting Recognition</h1>
+          <div style={{border:'1px solid black', width:'300px', marginLeft:'5px'}}>
+            <SignatureCanvas penColor='black' minWidth={3.0} maxWidth={3.0} 
+             canvasProps={{width: 300, height: 300, className: 'sigCanvas'}} ref={(r) => { this._signatureCanvas = r;}} />
+         </div>
+         <div>
+           <button  onClick={this.clear}>
+              Clear
+           </button>
+           <button  onClick={this.trim}>
+              Predict!
+           </button>
+        </div>
+        <div>
+           {result ? 'Prediction: '+result : ''}
+        </div>
+        <div>
+        {trimmedDataURL
+          ? <img alt="handwrittenText"
           src={trimmedDataURL} />
         : null}
+
+        </div>
       </div>
+      
     );
   }
 }
