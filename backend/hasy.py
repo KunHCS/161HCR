@@ -14,3 +14,13 @@ def predict_hasy(img_input):
         output = model.predict(img_input)
     # backend.clear_session()
     return np.argmax(output[0])
+
+
+model2 = models.load_model('mnist.h5')
+
+def predict_mnist(img_input):
+    img_input = utils.normalize(img_input)
+    with graph.as_default():
+        output = model2.predict(img_input)
+        print(np.argmax(output))
+    return np.argmax(output[0])

@@ -9,7 +9,9 @@ from keras.preprocessing.image import img_to_array
 from flask_cors import CORS
 from PIL import Image
 import io
-from .hasy import predict_hasy
+from .hasy import predict_hasy, predict_mnist
+
+from scipy.misc import imsave, imread, imresize
 
 app = Flask(__name__, static_folder=Config.STATIC_PATH,
             template_folder=Config.TEMPLATE_PATH)
@@ -24,6 +26,15 @@ def convert_image(image_data):
         output.write(base64.b64decode(image_str))
     image = Image.open(io.BytesIO(base64.b64decode(image_str)))
     image = preprocess_image(image, (32, 32))
+    return image
+
+# decoding an image from base64 into raw representation for MNIST model
+def convert_image2(image_data):
+    image_str = re.search(b'base64,(.*)', image_data).group(1)
+    with open('output.png', 'wb') as output:
+        output.write(base64.b64decode(image_str))
+    image = Image.open(io.BytesIO(base64.b64decode(image_str)))
+    image = preprocess_image(image, (28, 28))
     return image
 
 
@@ -53,6 +64,8 @@ def remove_transparency(im, bg_colour=(255, 255, 255)):
         return im
 
 
+
+# Route for HASYv2 model
 # user input image
 @app.route('/image', methods=['POST', 'GET'])
 def image_route():
@@ -67,10 +80,25 @@ def image_route():
     image = convert_image(image_data)
     print(image.shape)
     image = image.astype(np.float32)
+
+
     out = predict_hasy(image)
     out = out.item()
     print('OUTPUT', mapping[out])
     return jsonify({'Result': mapping[out], 'Symbol': out}), 200
+
+# Route for MNIST model
+@app.route('/image2', methods=['POST', 'GET'])
+def image_route2():
+    image_data = request.get_data()
+    image = convert_image2(image_data)
+    print(image.shape)
+    image = image.astype(np.float32)
+    
+    out = predict_mnist(image)
+    #out = np.array_str(out)
+    print('OUTPUT', out)
+    return jsonify({'Result': int(out)}), 200
 
 
 # Catch all
