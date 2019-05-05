@@ -11,8 +11,6 @@ from PIL import Image
 import io
 from .hasy import predict_hasy, predict_mnist
 
-from scipy.misc import imsave, imread, imresize
-
 app = Flask(__name__, static_folder=Config.STATIC_PATH,
             template_folder=Config.TEMPLATE_PATH)
 app.config.from_object(Config)
@@ -43,7 +41,10 @@ def preprocess_image(image, size):
     image = image.resize(size, Image.BICUBIC)
     image = image.point(lambda x: 0 if x < 255 else 255, '1')
     image.save('resize.png')
+    if size == (28, 28):
+        image = np.invert(image)
     image = img_to_array(image)
+
     image = np.expand_dims(image, axis=0)
     return image
 
@@ -81,11 +82,11 @@ def image_route():
     print(image.shape)
     image = image.astype(np.float32)
 
-
     out = predict_hasy(image)
     out = out.item()
     print('OUTPUT', mapping[out])
     return jsonify({'Result': mapping[out], 'Symbol': out}), 200
+
 
 # Route for MNIST model
 @app.route('/image2', methods=['POST', 'GET'])
@@ -94,11 +95,9 @@ def image_route2():
     image = convert_image2(image_data)
     print(image.shape)
     image = image.astype(np.float32)
-    
     out = predict_mnist(image)
-    #out = np.array_str(out)
     print('OUTPUT', out)
-    return jsonify({'Result': int(out)}), 200
+    return jsonify({'Result': str(out)}), 200
 
 
 # Catch all

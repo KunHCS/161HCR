@@ -17,11 +17,11 @@ class App extends Component {
     this._signatureCanvas.clear()
   }
   trim = () => {
-    this.setState({trimmedDataURL: this._signatureCanvas.getTrimmedCanvas()
+    this.setState({trimmedDataURL: this._signatureCanvas
       .toDataURL('image/png')});
     if (this.state.value === 'HASYv2') {this.predictImage(this._signatureCanvas.getTrimmedCanvas()
       .toDataURL('image/png'));}
-    else {this.predictImage2(this._signatureCanvas.getTrimmedCanvas()
+    else {this.predictImage2(this._signatureCanvas
       .toDataURL('image/png'));}
   }
 
