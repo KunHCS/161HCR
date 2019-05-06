@@ -26,6 +26,7 @@ def convert_image(image_data):
     image = preprocess_image(image, (32, 32))
     return image
 
+
 # decoding an image from base64 into raw representation for MNIST model
 def convert_image2(image_data):
     image_str = re.search(b'base64,(.*)', image_data).group(1)
@@ -63,7 +64,6 @@ def remove_transparency(im, bg_colour=(255, 255, 255)):
         return bg
     else:
         return im
-
 
 
 # Route for HASYv2 model

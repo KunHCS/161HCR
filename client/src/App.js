@@ -107,7 +107,7 @@ class App extends Component {
                   Predict!
                 </button>
               </div>
-              <div>{result ? "Prediction: " + result : ""}</div>
+              <div className="ml-5 mt-2"><h1>{result ? "Prediction: " + result : ""}</h1></div>
               <div className="ml-5">
                 {trimmedDataURL ? (
                   <img alt="handwrittenText" src={trimmedDataURL} />

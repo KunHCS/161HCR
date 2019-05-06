@@ -18,6 +18,7 @@ def predict_hasy(img_input):
 
 model2 = models.load_model('mnist.h5')
 
+
 def predict_mnist(img_input):
     img_input = utils.normalize(img_input)
     with graph.as_default():
